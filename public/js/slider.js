@@ -5,12 +5,31 @@ document.addEventListener('DOMContentLoaded', function() {
     const totalSlides = slides.length;
     let slideInterval;
     const slideIntervalTime = 3000; // 3 seconds
+    let isDragging = false;
+    let startPos = 0;
+    let currentTranslate = 0;
+    let prevTranslate = 0;
+    let animationID = 0;
+
+    // Disable context menu
+    window.oncontextmenu = function(event) {
+        event.preventDefault();
+        event.stopPropagation();
+        return false;
+    }
 
     // Go to specific slide
     function goToSlide(slideIndex) {
+        // Ensure slideIndex is within bounds
         currentSlide = (slideIndex + totalSlides) % totalSlides;
-        const offset = -currentSlide * 100;
-        slider.style.transform = `translateX(${offset}%)`;
+        currentTranslate = -currentSlide * 100;
+        prevTranslate = currentTranslate;
+        setSliderPosition();
+    }
+
+    // Set slider position with smooth transition
+    function setSliderPosition() {
+        slider.style.transform = `translateX(${currentTranslate}%)`;
     }
 
     // Next slide
@@ -20,56 +39,91 @@ document.addEventListener('DOMContentLoaded', function() {
 
     // Auto slide
     function startInterval() {
-        slideInterval = setInterval(nextSlide, slideIntervalTime);
-    }
-
-    // Pause on hover
-    slider.parentElement.addEventListener('mouseenter', () => {
         clearInterval(slideInterval);
-    });
-
-    // Resume on mouse leave
-    slider.parentElement.addEventListener('mouseleave', startInterval);
-
-    // Initialize
-    startInterval();
-
-    // Make slider responsive
-    function handleResize() {
-        const offset = -currentSlide * 100;
-        slider.style.transform = `translateX(${offset}%)`;
-    }
-
-    // Handle window resize
-    window.addEventListener('resize', handleResize);
-
-    // Handle touch events for mobile swipe
-    let touchStartX = 0;
-    let touchEndX = 0;
-
-    slider.parentElement.addEventListener('touchstart', (e) => {
-        touchStartX = e.changedTouches[0].screenX;
-        clearInterval(slideInterval);
-    }, { passive: true });
-
-    slider.parentElement.addEventListener('touchend', (e) => {
-        touchEndX = e.changedTouches[0].screenX;
-        handleSwipe();
-        startInterval();
-    }, { passive: true });
-
-    function handleSwipe() {
-        const swipeThreshold = 50; // Minimum distance to consider it a swipe
-        const difference = touchStartX - touchEndX;
-
-        if (Math.abs(difference) > swipeThreshold) {
-            if (difference > 0) {
-                // Swipe left - go to next slide
+        slideInterval = setInterval(() => {
+            if (!isDragging) {  // Only auto-slide if not being interacted with
                 nextSlide();
-            } else {
-                // Swipe right - go to previous slide
-                goToSlide(currentSlide - 1);
             }
+        }, slideIntervalTime);
+    }
+
+    // Touch event handlers
+    function touchStart(index) {
+        return function(event) {
+            isDragging = true;
+            startPos = getPositionX(event);
+            clearInterval(slideInterval);
+            
+            // Stop any ongoing animations
+            cancelAnimationFrame(animationID);
         }
     }
+
+    function touchEnd() {
+        isDragging = false;
+        const movedBy = currentTranslate - prevTranslate;
+        
+        // If moved enough to change slide
+        if (movedBy < -50 && currentSlide < totalSlides - 1) {
+            currentSlide += 1;
+        }
+        
+        if (movedBy > 50 && currentSlide > 0) {
+            currentSlide -= 1;
+        }
+        
+        goToSlide(currentSlide);
+        startInterval();
+    }
+
+    function touchMove(event) {
+        if (isDragging) {
+            const currentPosition = getPositionX(event);
+            currentTranslate = prevTranslate + (currentPosition - startPos) / slider.offsetWidth * 100;
+            
+            // Prevent scrolling while swiping
+            if (Math.abs(currentPosition - startPos) > 10) {
+                event.preventDefault();
+            }
+            
+            // Move the slider
+            slider.style.transform = `translateX(${currentTranslate}%)`;
+        }
+    }
+
+    function getPositionX(event) {
+        return event.type.includes('mouse') ? event.pageX : event.touches[0].clientX;
+    }
+
+    // Initialize event listeners
+    function init() {
+        // Add event listeners for mouse and touch events
+        slider.parentElement.addEventListener('mousedown', touchStart(0));
+        slider.parentElement.addEventListener('touchstart', touchStart(0), { passive: false });
+        
+        window.addEventListener('mouseup', touchEnd);
+        window.addEventListener('touchend', touchEnd);
+        
+        window.addEventListener('mousemove', touchMove);
+        window.addEventListener('touchmove', touchMove, { passive: false });
+        
+        // Prevent image drag
+        const images = document.querySelectorAll('.slide img');
+        images.forEach(img => {
+            img.addEventListener('dragstart', (e) => e.preventDefault());
+        });
+        
+        // Start the auto-slide
+        startInterval();
+    }
+    
+    // Initialize the slider
+    init();
+    
+    // Handle window resize
+    function handleResize() {
+        goToSlide(currentSlide);
+    }
+    
+    window.addEventListener('resize', handleResize);
 });
