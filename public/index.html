@@ -38,10 +38,46 @@
             <p class="hero-description">Experience the finest selection of quality products, sourced directly from trusted farmers and exported worldwide.</p>
             <a href="contact.html" class="cta-button">Contact Us</a>
         </div>
-        <div class="hero-image">
-            <div class="hero-placeholder">
-                <img src="images/farmer_real.avif" alt="Indian Farmer">
+        <div class="slider-container">
+            <div class="slider">
+                <div class="slide active">
+                    <img src="images/farmer_real.avif" alt="Indian Farmer">
+                    <div class="slide-content">
+                        <h3>Our Farmers</h3>
+                        <p>Dedicated to quality and sustainability</p>
+                    </div>
+                </div>
+                <div class="slide">
+                    <a href="products.html#finger-millet">
+                        <img src="images/finger_millets.webp" alt="Finger Millet">
+                        <div class="slide-content">
+                            <h3>Finger Millet (Ragi)</h3>
+                            <p>Rich in calcium and fiber</p>
+                        </div>
+                    </a>
+                </div>
+                <div class="slide">
+                    <a href="products.html#pearl-millet">
+                        <img src="images/peral_millets.webp" alt="Pearl Millet">
+                        <div class="slide-content">
+                            <h3>Pearl Millet (Bajra)</h3>
+                            <p>High in protein and iron</p>
+                        </div>
+                    </a>
+                </div>
+                <div class="slide">
+                    <a href="products.html#sorghum-millet">
+                        <img src="images/sorgam_millets.avif" alt="Sorghum Millet">
+                        <div class="slide-content">
+                            <h3>Sorghum Millet (Jowar)</h3>
+                            <p>Gluten-free and nutritious</p>
+                        </div>
+                    </a>
+                </div>
             </div>
+            <button class="slider-btn prev-btn">&lt;</button>
+            <button class="slider-btn next-btn">&gt;</button>
+            <div class="slider-dots"></div>
         </div>
     </section>
 
@@ -164,6 +200,7 @@
     </footer>
 
     <script src="products.js"></script>
+    <script src="js/slider.js"></script>
     <script src="script.js"></script>
 </body>
 </html>
