@@ -128,39 +128,18 @@ body {
     transition: transform 0.3s ease;
 }
 
-.slide a {
-    display: block;
+.slide {
+    position: relative;
+    height: 100%;
+    overflow: hidden;
+}
+
+.slide img {
     width: 100%;
     height: 100%;
-    position: relative;
-    text-decoration: none;
-    cursor: pointer;
-    -webkit-tap-highlight-color: transparent;
-}
-
-.slide a:hover img {
-    transform: scale(1.05);
-}
-
-/* Ensure the link covers the entire slide */
-.slide > a {
-    display: flex;
-    flex-direction: column;
-    height: 100%;
-}
-
-/* Make sure the image container doesn't interfere with clicks */
-.slide img {
-    pointer-events: none;
-}
-
-/* Make sure the slide content is clickable */
-.slide-content {
-    pointer-events: none;
-}
-
-.slide-content * {
-    pointer-events: auto;
+    object-fit: cover;
+    display: block;
+    transition: transform 0.3s ease;
 }
 
 .slide-content {
