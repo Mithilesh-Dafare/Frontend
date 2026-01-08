@@ -127,57 +127,42 @@ function displayProducts() {
     
     if (!productsGrid) {
         console.error('Products grid element not found!');
-        // If the grid isn't found, try again after a short delay
-        if (document.readyState === 'loading') {
-            // If the document is still loading, wait for it to finish
-            document.addEventListener('DOMContentLoaded', displayProducts);
-        } else {
-            // If the document has loaded but we still can't find the grid, try again after a short delay
-            setTimeout(displayProducts, 100);
-        }
+        // Try again after a short delay if the element isn't found
+        setTimeout(displayProducts, 100);
         return;
     }
 
-    try {
-        console.log('Number of products:', milletProducts.length);
-        
-        // Create product cards HTML
-        const productsHTML = milletProducts.map(product => `
-            <div class="product-card reveal" onclick="viewProductDetail(${product.id})" style="cursor: pointer;">
-                <div class="product-card-image ${product.imageClass}" style="background-color: #f5f5f5; height: 200px; overflow: hidden;">
-                    <img src="${product.image}" alt="${product.name}" 
-                         onerror="this.style.display='none'; this.parentElement.classList.add('${product.imageClass}');"
-                         style="width: 100%; height: 100%; object-fit: cover;">
-                </div>
-                <div class="product-card-content">
-                    <h3>${product.name}</h3>
-                    <div class="price">
-                        <span>₹${product.price}/kg</span>
-                        <span class="usd-price">($${product.priceUsd}/kg)</span>
-                    </div>
-                    <p class="description">${product.description}</p>
-                    <button class="add-to-cart-btn" onclick="event.stopPropagation(); viewProductDetail(${product.id})">
-                        View Details
-                    </button>
-                </div>
-            </div>
-        `).join('');
+    // Clear any existing content
+    productsGrid.innerHTML = '';
 
-        // Set the HTML content
-        productsGrid.innerHTML = productsHTML;
-        console.log('Products HTML set successfully');
-    } catch (error) {
-        console.error('Error displaying products:', error);
-        if (productsGrid) {
-            productsGrid.innerHTML = `
-                <div class="error-message" style="grid-column: 1/-1; text-align: center; padding: 2rem;">
-                    <h3>Unable to load products</h3>
-                    <p>Please check your internet connection and try again.</p>
-                    <button onclick="window.location.reload()" class="add-to-cart-btn">Retry</button>
+    // Add each product to the grid
+    milletProducts.forEach(product => {
+        const productCard = document.createElement('div');
+        productCard.className = 'product-card';
+        productCard.innerHTML = `
+            <div class="product-card-image ${product.imageClass || ''}">
+                <img src="${product.image}" alt="${product.name}" onerror="this.style.display='none'">
+            </div>
+            <div class="product-card-content">
+                <h3>${product.name}</h3>
+                <div class="price">
+                    ₹${product.price}/kg
+                    <span class="usd-price">($${product.priceUsd}/kg)</span>
                 </div>
-            `;
-        }
-    }
+                <p class="description">${product.description}</p>
+                <div class="benefits">
+                    <h4>Key Benefits:</h4>
+                    <ul>
+                        ${product.benefits.map(benefit => `<li>${benefit}</li>`).join('')}
+                    </ul>
+                </div>
+                <button class="btn primary" onclick="viewProductDetail(${product.id})">View Details</button>
+            </div>
+        `;
+        productsGrid.appendChild(productCard);
+    });
+    
+    console.log(`Displayed ${milletProducts.length} products`);
 }
 
 // View product detail - Make it globally available
