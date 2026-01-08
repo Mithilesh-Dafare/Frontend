@@ -1211,16 +1211,16 @@ body {
     bottom: 30px;
     right: 30px;
     display: flex;
-    flex-direction: column-reverse;
+    flex-direction: column;
+    align-items: flex-end;
     gap: 15px;
     z-index: 1000;
 }
 
 /* Video Call Floating Button */
 .video-call-float {
-    position: relative;
-    width: 65px;
-    height: 65px;
+    width: 60px;
+    height: 60px;
     background-color: #1a73e8;
     color: #FFF;
     border-radius: 50%;
@@ -1261,11 +1261,8 @@ body {
 
 /* WhatsApp Floating Button */
 .whatsapp-float {
-    position: fixed;
-    width: 65px;
-    height: 65px;
-    bottom: 30px;
-    right: 30px;
+    width: 60px;
+    height: 60px;
     background-color: #25d366;
     color: #FFF;
     border-radius: 50%;
@@ -1325,20 +1322,20 @@ body {
 @media (max-width: 768px) {
     .floating-buttons {
         bottom: 20px;
-        right: 20px;
-        gap: 12px;
+        right: 15px;
+        gap: 10px;
     }
     
     .whatsapp-float,
     .video-call-float {
-        width: 56px;
-        height: 56px;
-        font-size: 28px;
+        width: 50px;
+        height: 50px;
+        font-size: 24px;
     }
     
     .whatsapp-float i,
     .video-call-float i {
-        line-height: 56px;
+        line-height: 50px;
     }
 }
 
