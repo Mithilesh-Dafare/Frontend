@@ -6,13 +6,12 @@
   "scripts": {
     "dev": "vite",
     "start": "vite preview --port 3000 --host",
-    "build": "npx vite build",
+    "build": "node ./node_modules/vite/bin/vite.js build",
     "preview": "vite preview --port 3000 --host",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
-  "dependencies": {},
   "devDependencies": {
-    "vite": "^4.4.9"
+    "vite": "^4.5.14"
   },
   "browserslist": [
     "> 1%",
@@ -23,4 +22,3 @@
     "node": "18.x"
   }
 }
-
