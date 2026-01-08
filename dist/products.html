@@ -1,0 +1,127 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Our Products - SayOne Ventures</title>
+    <!-- whatsapp floating button -->
+     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    
+  <link rel="stylesheet" href="./assets/styles-74d2c37b.css">
+</head>
+<body>
+    <!-- Header -->
+    <header class="header">
+        <nav class="navbar">
+            <div class="container">
+                <div class="logo">
+                    <h1>SayOne Ventures</h1>
+                </div>
+                <ul class="nav-menu">
+                    <li><a href="index.html">Home</a></li>
+                    <li><a href="about.html">About</a></li>
+                    <li><a href="products.html" class="active">Products</a></li>
+                    <li><a href="product-catalogue.pdf" target="_blank">Product Catalogue</a></li>
+                    <li><a href="contact.html">Contact Us</a></li>
+                </ul>
+                <div class="hamburger">
+                    <span></span>
+                    <span></span>
+                    <span></span>
+                </div>
+            </div>
+        </nav>
+    </header>
+
+    <!-- Products Hero -->
+    <section class="page-hero">
+        <div class="container">
+            <h1>Our Quality Products</h1>
+            <p>Premium Quality Organic products</p>
+        </div>
+    </section>
+
+    <!-- Products Grid -->
+    <section class="products-section">
+        <div class="container">
+            <!-- 
+                PRODUCT IMAGES ARE CONTROLLED IN products.js FILE
+                To change millet images:
+                1. Open public/products.js
+                2. Find the milletProducts array
+                3. Update the 'image' property for each product
+                4. Example: image: 'images/your_image_name.webp'
+                5. Make sure your images are in the public/images/ folder
+            -->
+            <div class="products-grid" id="productsGrid">
+                <!-- Products will be loaded dynamically from products.js -->
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-section">
+                    <h3>SayOne Ventures</h3>
+                    <p>Trusted global exporters of premium-quality products.</p>
+                </div>
+                <div class="footer-section">
+                    <h4>Quick Links</h4>
+                    <ul>
+                        <li><a href="index.html">Home</a></li>
+                        <li><a href="about.html">About</a></li>
+                        <li><a href="products.html">Products</a></li>
+                        <li><a href="contact.html">Contact</a></li>
+                    </ul>
+                </div>
+                <div class="footer-section">
+                    <h4>Contact</h4>
+                    <p>Email: sales@sayoneventures.com</p>
+                    <p>Phone: +91-7058766180</p>
+                </div>
+            </div>
+            <div class="footer-bottom">
+                <p>&copy; 2026 SayOne Ventures. All rights reserved.</p>
+            </div>
+        </div>
+    </footer>
+
+  <!-- Load scripts at the end of the body -->
+<script>
+    // Simple script loader with error handling
+    function loadScript(src, callback) {
+        const script = document.createElement('script');
+        script.src = src;
+        script.onload = () => callback && callback();
+        script.onerror = (error) => {
+            console.error(`Error loading script: ${src}`, error);
+            callback && callback();
+        };
+        document.body.appendChild(script);
+    }
+
+    // First load products.js
+    loadScript('products.js', function() {
+        // Then load script.js
+        loadScript('script.js');
+    });
+</script>
+
+    <!-- Floating Action Buttons -->
+    <div class="floating-buttons">
+        
+        <!-- WhatsApp Button -->
+        <div class="whatsapp-float">
+            <a href="https://wa.me/7058766180?text=Hello%20SayOne%20Ventures%2C%20I%20have%20a%20question%20about%20your%20products" 
+               target="_blank" 
+               rel="noopener noreferrer"
+               aria-label="Chat with us on WhatsApp">
+                <i class="fab fa-whatsapp"></i>
+            </a>
+        </div>
+    </div>
+</body>
+</html>
+
