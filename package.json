@@ -4,12 +4,12 @@
   "private": true,
   "type": "module",
   "scripts": {
-    "dev": "vite",
-    "start": "vite preview --port 3000 --host",
-    "build": "node ./node_modules/vite/bin/vite.js build",
-    "preview": "vite preview --port 3000 --host",
-    "test": "echo \"Error: no test specified\" && exit 1"
-  },
+  "dev": "vite",
+  "start": "vite preview --port 3000 --host",
+  "build": "node ./node_modules/vite/dist/node/cli.js build",
+  "preview": "vite preview --port 3000 --host",
+  "test": "echo \"Error: no test specified\" && exit 1"
+},
   "devDependencies": {
     "vite": "^4.5.14"
   },
