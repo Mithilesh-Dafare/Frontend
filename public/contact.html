@@ -112,8 +112,16 @@
         </div>
     </footer>
 
-    <script src="contact.js"></script>
-    <script src="script.js"></script>
+<script type="module">
+  // Use dynamic imports to load the scripts
+  import('./contact.js').catch(error => {
+    console.error('Failed to load contact.js:', error);
+  }).then(() => {
+    return import('./script.js').catch(error => {
+      console.error('Failed to load script.js:', error);
+    });
+  });
+</script>
 
     <!-- Floating Action Buttons -->
     <div class="floating-buttons">
