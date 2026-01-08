@@ -139,24 +139,20 @@ function displayProducts() {
     milletProducts.forEach(product => {
         const productCard = document.createElement('div');
         productCard.className = 'product-card';
+        productCard.style.cursor = 'pointer'; // Add pointer cursor
+        productCard.onclick = () => viewProductDetail(product.id); // Make entire card clickable
+        
         productCard.innerHTML = `
             <div class="product-card-image ${product.imageClass || ''}">
                 <img src="${product.image}" alt="${product.name}" onerror="this.style.display='none'">
             </div>
             <div class="product-card-content">
                 <h3>${product.name}</h3>
-                <div class="price">
-                    ₹${product.price}/kg
-                    <span class="usd-price">($${product.priceUsd}/kg)</span>
+                <div class="price-container">
+                    <span class="price-inr">₹${product.price}/kg</span>
+                    <span class="price-usd">$${product.priceUsd}/kg</span>
                 </div>
                 <p class="description">${product.description}</p>
-                <div class="benefits">
-                    <h4>Key Benefits:</h4>
-                    <ul>
-                        ${product.benefits.map(benefit => `<li>${benefit}</li>`).join('')}
-                    </ul>
-                </div>
-                <button class="btn primary" onclick="viewProductDetail(${product.id})">View Details</button>
             </div>
         `;
         productsGrid.appendChild(productCard);
