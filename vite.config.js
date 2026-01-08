@@ -1,11 +1,11 @@
-// frontend/vite.config.js
-import { defineConfig } from 'vite'
-import { resolve } from 'path'
+import { defineConfig } from 'vite';
+import { resolve } from 'path';
 
 export default defineConfig({
-  root: '.',
+  root: 'public',
+  publicDir: 'public',
   build: {
-    outDir: 'dist',
+    outDir: '../dist',
     emptyOutDir: true,
     rollupOptions: {
       input: {
@@ -17,6 +17,10 @@ export default defineConfig({
         order: resolve(__dirname, 'public/order.html')
       }
     }
+  },
+  server: {
+    port: 3000,
+    open: true
   },
   server: {
     port: 3000,
