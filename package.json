@@ -19,6 +19,6 @@
     "not dead"
   ],
   "engines": {
-    "node": "18.x"
+    "node": "24.x"
   }
 }
