@@ -114,6 +114,8 @@
             script.onerror = () => {
                 console.error('Error loading script:', src);
                 logDebug('Error loading: ' + src);
+                // Continue with the next script even if this one fails
+                if (callback) callback();
             };
             document.body.appendChild(script);
         }
@@ -122,22 +124,32 @@
         document.addEventListener('DOMContentLoaded', function() {
             logDebug('DOM fully loaded');
             
-            // Load scripts in order
-            loadScript('script.js', function() {
-                loadScript('products.js', function() {
-                    // Initialize after all scripts are loaded
-                    if (typeof displayProducts === 'function') {
-                        logDebug('Calling displayProducts()');
-                        displayProducts();
-                    } else {
-                        logDebug('displayProducts function not found!');
-                    }
+            // First load EmailJS
+            loadScript('https://cdn.jsdelivr.net/npm/emailjs-com@3.2.1/dist/email.min.js', function() {
+                // Initialize EmailJS
+                (function(){
+                    emailjs.init({
+                        publicKey: 'YOUR_PUBLIC_KEY', // Replace with your actual public key
+                    });
+                })();
+                
+                // Then load notifications.js which depends on EmailJS
+                loadScript('js/notifications.js', function() {
+                    // Then load other scripts
+                    loadScript('script.js', function() {
+                        // Finally load products.js
+                        loadScript('products.js', function() {
+                            // Initialize after all scripts are loaded
+                            if (typeof displayProducts === 'function') {
+                                logDebug('Calling displayProducts()');
+                                displayProducts();
+                            } else {
+                                logDebug('displayProducts function not found!');
+                            }
+                        });
+                    });
                 });
             });
-            
-            // Load other non-critical scripts
-            loadScript('https://cdn.jsdelivr.net/npm/emailjs-com@3.2.1/dist/email.min.js');
-            loadScript('js/notifications.js');
         });
     </script>
 

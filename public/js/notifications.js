@@ -3,11 +3,24 @@
  * This script handles sending notifications when a user clicks the video call button
  */
 
-// Initialize EmailJS with your public key
-(function() {
-    // Replace with your actual EmailJS public key
-    emailjs.init("YOUR_EMAILJS_PUBLIC_KEY");
-})();
+// Check if emailjs is available
+function isEmailJsAvailable() {
+    return typeof emailjs !== 'undefined' && 
+           typeof emailjs.init === 'function' &&
+           typeof emailjs.send === 'function';
+}
+
+// Initialize EmailJS if available
+if (typeof emailjs !== 'undefined') {
+    try {
+        emailjs.init({
+            publicKey: 'YOUR_EMAILJS_PUBLIC_KEY' // Replace with your actual public key
+        });
+        console.log('EmailJS initialized successfully');
+    } catch (error) {
+        console.error('Failed to initialize EmailJS:', error);
+    }
+}
 
 // Function to send video call notification
 function sendVideoCallNotification() {
@@ -16,7 +29,7 @@ function sendVideoCallNotification() {
     const pageUrl = window.location.href;
     const timestamp = new Date().toLocaleString();
     
-    // Get user's IP address (this is a free service, consider replacing with your own endpoint in production)
+    // Try to get IP address
     fetch('https://api.ipify.org?format=json')
         .then(response => response.json())
         .then(data => {
@@ -32,8 +45,13 @@ function sendVideoCallNotification() {
         });
 }
 
-// Send email notification
+// Send email notification if EmailJS is available
 function sendEmailNotification(userAgent, pageUrl, timestamp, ipAddress) {
+    if (!isEmailJsAvailable()) {
+        console.log('EmailJS not available, skipping email notification');
+        return;
+    }
+
     const templateParams = {
         to_email: 'your-email@example.com', // Replace with your email
         from_name: 'Website Visitor',
@@ -43,38 +61,59 @@ function sendEmailNotification(userAgent, pageUrl, timestamp, ipAddress) {
         ip_address: ipAddress
     };
 
-    emailjs.send(
-        'YOUR_EMAILJS_SERVICE_ID', // Replace with your service ID
-        'YOUR_EMAILJS_TEMPLATE_ID', // Replace with your template ID
-        templateParams
-    ).then(function(response) {
-        console.log('Email notification sent:', response.status, response.text);
-    }, function(error) {
-        console.error('Failed to send email notification:', error);
-    });
+    try {
+        emailjs.send('YOUR_SERVICE_ID', 'YOUR_TEMPLATE_ID', templateParams)
+            .then(function(response) {
+                console.log('Email sent successfully:', response);
+            }, function(error) {
+                console.error('Failed to send email:', error);
+            });
+    } catch (error) {
+        console.error('Error sending email:', error);
+    }
 }
 
 // Send WhatsApp notification
 function sendWhatsAppNotification(userAgent, pageUrl, timestamp, ipAddress) {
-    const phoneNumber = '917058766180'; // Your WhatsApp number with country code (no + or 00)
-    const message = `📞 New Video Call Request!%0A` +
-                   `🌐 Page: ${encodeURIComponent(pageUrl)}%0A` +
-                   `⏰ Time: ${encodeURIComponent(timestamp)}%0A` +
-                   `📱 Device: ${encodeURIComponent(userAgent)}%0A` +
-                   `🌍 IP: ${encodeURIComponent(ipAddress)}`;
+    const whatsappUrl = 'https://wa.me/917058766180?text=' + 
+        encodeURIComponent(`📞 New Video Call Request!%0A` +
+                         `🌐 Page: ${encodeURIComponent(pageUrl)}%0A` +
+                         `⏰ Time: ${encodeURIComponent(timestamp)}%0A` +
+                         `📱 Device: ${encodeURIComponent(userAgent)}%0A` +
+                         `🌍 IP: ${encodeURIComponent(ipAddress)}`);
     
-    // Open WhatsApp with the pre-filled message
-    window.open(`https://wa.me/${phoneNumber}?text=${message}`, '_blank');
+    // Open in new tab without blocking
+    const newWindow = window.open('about:blank', '_blank');
+    if (newWindow) {
+        newWindow.location.href = whatsappUrl;
+    }
 }
 
 // Add click event to all video call buttons
 document.addEventListener('DOMContentLoaded', function() {
-    const videoCallButtons = document.querySelectorAll('.video-call-float a');
+    const videoCallButtons = document.querySelectorAll('.video-call-float a, .video-call-button');
     
-    videoCallButtons.forEach(button => {
-        button.addEventListener('click', function(e) {
-            // Don't prevent default to allow the link to open
-            sendVideoCallNotification();
+    // Only add event listeners if buttons exist
+    if (videoCallButtons.length > 0) {
+        videoCallButtons.forEach(button => {
+            // Remove any existing click handlers to prevent duplicates
+            const newButton = button.cloneNode(true);
+            button.parentNode.replaceChild(newButton, button);
+            
+            // Add new click handler
+            newButton.addEventListener('click', function(e) {
+                // Always send notification
+                sendVideoCallNotification();
+                
+                // Only prevent default if it's not a direct link
+                const href = this.getAttribute('href');
+                if (!href || href === '#' || href === 'javascript:void(0)') {
+                    e.preventDefault();
+                    window.open('https://meet.google.com/new', '_blank');
+                }
+            });
         });
-    });
+    } else {
+        console.log('No video call buttons found on the page');
+    }
 });
