@@ -2,6 +2,7 @@ import { defineConfig } from 'vite';
 import { resolve } from 'path';
 
 export default defineConfig({
+  base: './',                 // 👈 THIS LINE FIXES CSS
   root: 'public',
   build: {
     outDir: '../dist',
@@ -22,4 +23,4 @@ export default defineConfig({
     open: true,
     strictPort: true
   }
-})
+});
