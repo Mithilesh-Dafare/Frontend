@@ -145,17 +145,21 @@
         </div>
     </footer>
 
-    <script src="order.js"></script>
     <script src="script.js"></script>
+    <script src="order.js"></script>
+    <!-- EmailJS for notifications -->
+    <script src="https://cdn.jsdelivr.net/npm/emailjs-com@3.2.1/dist/email.min.js"></script>
+    <script src="js/notifications.js"></script>
 
     <!-- Floating Action Buttons -->
     <div class="floating-buttons">
-        <!-- Video Call Button -->
+        <!-- Video Call Button with Notification -->
         <div class="video-call-float">
             <a href="https://meet.google.com/new" 
                target="_blank" 
                rel="noopener noreferrer"
-               aria-label="Start a video call with us">
+               aria-label="Start a video call with us"
+               class="video-call-button">
                 <i class="fas fa-video"></i>
             </a>
         </div>

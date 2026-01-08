@@ -46,8 +46,13 @@ function displayProductDetail(product) {
                 </div>
                 <h1 class="product-detail-title">${product.name}</h1>
                 <div class="product-detail-price">
-                    <span class="price-label">Price:</span>
-                    <span class="price-value">₹${product.price}/Kg</span>
+                    <div class="price-container">
+                        <span class="price-label">Price:</span>
+                        <div class="price-value">
+                            <span class="inr-price">₹${product.price}/kg</span>
+                            <span class="usd-price">($${product.priceUsd || '0.7-1'}/kg)</span>
+                        </div>
+                    </div>
                 </div>
                 <div class="product-detail-description">
                     <h3>Description</h3>

@@ -87,17 +87,69 @@
         </div>
     </footer>
 
-    <script src="products.js"></script>
-    <script src="script.js"></script>
+    <!-- Add debug info -->
+    <div id="debug-info" style="display: none; position: fixed; bottom: 0; right: 0; background: #f8f9fa; padding: 10px; border: 1px solid #ddd; z-index: 9999;"></div>
+    
+    <!-- Load scripts with proper order -->
+    <script>
+        // Debug function
+        function logDebug(message) {
+            console.log('[DEBUG]', message);
+            const debugEl = document.getElementById('debug-info');
+            if (debugEl) {
+                debugEl.innerHTML += '<div>' + message + '</div>';
+                debugEl.style.display = 'block';
+            }
+        }
+        
+        // Load scripts in order
+        function loadScript(src, callback) {
+            logDebug('Loading script: ' + src);
+            const script = document.createElement('script');
+            script.src = src;
+            script.onload = () => {
+                logDebug('Loaded: ' + src);
+                if (callback) callback();
+            };
+            script.onerror = () => {
+                console.error('Error loading script:', src);
+                logDebug('Error loading: ' + src);
+            };
+            document.body.appendChild(script);
+        }
+        
+        // Load scripts in sequence
+        document.addEventListener('DOMContentLoaded', function() {
+            logDebug('DOM fully loaded');
+            
+            // Load scripts in order
+            loadScript('script.js', function() {
+                loadScript('products.js', function() {
+                    // Initialize after all scripts are loaded
+                    if (typeof displayProducts === 'function') {
+                        logDebug('Calling displayProducts()');
+                        displayProducts();
+                    } else {
+                        logDebug('displayProducts function not found!');
+                    }
+                });
+            });
+            
+            // Load other non-critical scripts
+            loadScript('https://cdn.jsdelivr.net/npm/emailjs-com@3.2.1/dist/email.min.js');
+            loadScript('js/notifications.js');
+        });
+    </script>
 
     <!-- Floating Action Buttons -->
     <div class="floating-buttons">
-        <!-- Video Call Button -->
+        <!-- Video Call Button with Notification -->
         <div class="video-call-float">
             <a href="https://meet.google.com/new" 
                target="_blank" 
                rel="noopener noreferrer"
-               aria-label="Start a video call with us">
+               aria-label="Start a video call with us"
+               class="video-call-button">
                 <i class="fas fa-video"></i>
             </a>
         </div>

@@ -4,7 +4,8 @@ const milletProducts = [
     {
         id: 1,
         name: 'Finger Millet (Ragi)',
-        price: 120,
+        price: 58, // 0.7 * 83
+        priceUsd: '0.7-1',
         description: 'Rich in calcium, iron, and fiber. Perfect for bone health and managing diabetes.',
         benefits: [
             'High in calcium (3x more than milk)',
@@ -19,7 +20,8 @@ const milletProducts = [
     {
         id: 2,
         name: 'Pearl Millet (Bajra)',
-        price: 100,
+        price: 62, // 0.75 * 83 (average of 0.6-0.9)
+        priceUsd: '0.6-0.9',
         description: 'High in protein and iron. Excellent for energy and preventing anemia.',
         benefits: [
             'High protein content',
@@ -35,7 +37,8 @@ const milletProducts = [
     {
         id: 3,
         name: 'Sorghum Millet (Jowar)',
-        price: 95,
+        price: 54, // 0.65 * 83 (average of 0.5-0.8)
+        priceUsd: '0.5-0.8',
         description: 'Rich in antioxidants and fiber. Supports digestive health.',
         benefits: [
             'High in antioxidants',
@@ -50,8 +53,9 @@ const milletProducts = [
 
     {
         id: 4,
-           name: 'Groundnut (Peanut)',
-        price: 150,
+        name: 'Groundnut (Peanut)',
+        price: 125, // 1.5 * 83 (average of 1-2)
+        priceUsd: '1-2',
         description: 'Rich source of healthy fats, protein, and antioxidants. Supports heart and muscle health.',
         benefits: [
         'High in plant-based protein',
@@ -67,7 +71,8 @@ const milletProducts = [
     {       
         id: 5,
         name: 'Soyabean',
-    price: 180,
+        price: 71, // 0.85 * 83 (average of 0.7-1)
+        priceUsd: '0.7-1',
     description: 'Excellent source of complete plant protein and essential amino acids.',
     benefits: [
         'Complete protein source',
@@ -83,7 +88,8 @@ const milletProducts = [
         {
         id: 6,
         name: 'Dehydrated Onion Powder',
-    price: 110,
+        price: 141, // 1.7 * 83 (average of 1.4-2)
+        priceUsd: '1.4-2',
     description: 'Concentrated onion flavor with long shelf life. Enhances taste and immunity.',
     benefits: [
         'Rich in antioxidants',
@@ -99,7 +105,8 @@ const milletProducts = [
         {
         id: 7,
         name: 'Guar Gum Powder',
-    price: 200,
+        price: 153, // 1.85 * 83 (average of 1.5-2.2)
+        priceUsd: '1.5-2.2',
     description: 'Natural thickening and stabilizing agent derived from guar beans.',
     benefits: [
         'Improves digestion',
@@ -115,30 +122,52 @@ const milletProducts = [
 
 // Display Products
 function displayProducts() {
+    console.log('Display products function called');
     const productsGrid = document.getElementById('productsGrid');
-    if (!productsGrid) return;
+    
+    if (!productsGrid) {
+        console.error('Products grid element not found!');
+        return;
+    }
 
-    productsGrid.innerHTML = milletProducts.map(product => `
-        <div class="product-card reveal" onclick="viewProductDetail(${product.id})" style="cursor: pointer;">
-            <div class="product-card-image ${product.imageClass}" style="background-image: url('${product.image}')">
-                <img src="${product.image}" alt="${product.name}" onerror="this.style.display='none'; this.parentElement.classList.add('${product.imageClass}');">
-            </div>
-            <div class="product-card-content">
-                <h3>${product.name}</h3>
-                <div class="price">₹${product.price}/Kg</div>
-                <p class="description">${product.description}</p>
-                <div class="benefits">
-                    <h4>Key Benefits:</h4>
-                    <ul>
-                        ${product.benefits.map(benefit => `<li>${benefit}</li>`).join('')}
-                    </ul>
+    try {
+        console.log('Number of products:', milletProducts.length);
+        
+        // Create product cards HTML
+        const productsHTML = milletProducts.map(product => `
+            <div class="product-card reveal" onclick="viewProductDetail(${product.id})" style="cursor: pointer;">
+                <div class="product-card-image ${product.imageClass}" style="background-color: #f5f5f5;">
+                    <img src="${product.image}" alt="${product.name}" 
+                         onerror="this.style.display='none'; this.parentElement.classList.add('${product.imageClass}');"
+                         style="width: 100%; height: 100%; object-fit: cover;">
                 </div>
-                <button class="add-to-cart-btn" onclick="event.stopPropagation(); viewProductDetail(${product.id})">
-                    View Details
-                </button>
+                <div class="product-card-content">
+                    <h3>${product.name}</h3>
+                    <div class="price">
+                        <span>₹${product.price}/kg</span>
+                        <span class="usd-price">($${product.priceUsd}/kg)</span>
+                    </div>
+                    <p class="description">${product.description}</p>
+                    <button class="add-to-cart-btn" onclick="event.stopPropagation(); viewProductDetail(${product.id})">
+                        View Details
+                    </button>
+                </div>
             </div>
-        </div>
-    `).join('');
+        `).join('');
+
+        // Set the HTML content
+        productsGrid.innerHTML = productsHTML;
+        console.log('Products HTML set successfully');
+    } catch (error) {
+        console.error('Error displaying products:', error);
+        productsGrid.innerHTML = `
+            <div class="error-message" style="grid-column: 1/-1; text-align: center; padding: 2rem;">
+                <h3>Unable to load products</h3>
+                <p>Please check your internet connection and try again.</p>
+                <button onclick="window.location.reload()" class="add-to-cart-btn">Retry</button>
+            </div>
+        `;
+    }
 }
 
 // View product detail - Make it globally available
