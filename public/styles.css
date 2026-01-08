@@ -181,10 +181,11 @@ body {
     display: grid;
     grid-template-columns: 1fr 1fr;
     gap: 3rem;
-    padding: 4rem 0;
+    padding: 2rem 0 4rem;
     background: linear-gradient(135deg, #f0f8e8 0%, #ffffff 100%);
     min-height: 500px;
     align-items: center;
+    margin-top: 0;
 }
 
 .hero-content {
