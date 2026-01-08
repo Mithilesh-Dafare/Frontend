@@ -102,54 +102,15 @@
             document.body.appendChild(script);
         }
 
-        // Load products first, then other scripts
-        document.addEventListener('DOMContentLoaded', function() {
-            console.log('DOM fully loaded');
-            
-            // Load products.js first to ensure products show up
-            loadScript('products.js', function() {
-                if (typeof displayProducts === 'function') {
-                    console.log('Calling displayProducts()');
-                    displayProducts();
-                } else {
-                    console.error('displayProducts function not found!');
-                }
-                
-                // Then load other scripts that aren't critical for product display
-                loadScript('script.js');
-                
-                // Load EmailJS and notifications in the background
-                loadScript('https://cdn.jsdelivr.net/npm/emailjs-com@3.2.1/dist/email.min.js', function() {
-                    if (typeof emailjs !== 'undefined') {
-                        try {
-                            emailjs.init({
-                                publicKey: 'YOUR_PUBLIC_KEY' // Replace with your actual public key
-                            });
-                            console.log('EmailJS initialized');
-                            
-                            // Load notifications after EmailJS is ready
-                            loadScript('js/notifications.js');
-                        } catch (error) {
-                            console.error('Failed to initialize EmailJS:', error);
-                        }
-                    }
-                });
-            });
+        // Load products.js first to ensure products show up
+        loadScript('products.js', function() {
+            // Load other non-critical scripts
+            loadScript('script.js');
         });
     </script>
 
     <!-- Floating Action Buttons -->
     <div class="floating-buttons">
-        <!-- Video Call Button with Notification -->
-        <div class="video-call-float">
-            <a href="https://meet.google.com/new" 
-               target="_blank" 
-               rel="noopener noreferrer"
-               aria-label="Start a video call with us"
-               class="video-call-button">
-                <i class="fas fa-video"></i>
-            </a>
-        </div>
         
         <!-- WhatsApp Button -->
         <div class="whatsapp-float">
@@ -161,9 +122,6 @@
             </a>
         </div>
     </div>
-        <i class="fab fa-whatsapp"></i>
-    </a>
-</div>
 </body>
 </html>
 

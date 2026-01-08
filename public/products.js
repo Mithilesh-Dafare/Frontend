@@ -14,7 +14,7 @@ const milletProducts = [
             'Gluten-free'
         ],
         longDescription: 'Finger Millet (Ragi) is celebrated for its exceptional calcium and iron content, making it ideal for bone health and anemia management. Its low glycemic index supports blood sugar control, while high dietary fiber aids digestion and satiety. Ragi is naturally gluten-free, versatile in traditional porridges, rotis, and baked goods, and suitable for infant foods and diabetic-friendly diets. When sourced organically, it retains maximum nutrients and a nutty, earthy flavor profile.',
-        image: 'images/finger_millets.webp',  // Change this path to your image
+        image: 'images/finger_millets.webp',
         imageClass: 'millet-ragi'
     },
     {
@@ -30,7 +30,7 @@ const milletProducts = [
             'Supports heart health'
         ],
         longDescription: 'Pearl Millet (Bajra) is a powerhouse of protein, iron, and essential micronutrients. Its complex carbohydrates provide sustained energy, while high fiber supports digestion and heart health. Bajra is naturally gluten-free and resilient to harsh climates, making it a sustainable crop. It suits rotis, porridges, and multigrain mixes, and its rich mineral profile helps combat anemia and supports immune function.',
-        image: 'images/peral_millets.webp',  // Change this path to your image
+        image: 'images/peral_millets.webp',
         imageClass: 'millet-bajra'
     },
    
@@ -47,7 +47,7 @@ const milletProducts = [
             'Gluten-free'
         ],
         longDescription: 'Sorghum (Jowar) is a versatile whole grain rich in antioxidants and fiber, supporting digestive health and satiety. Naturally gluten-free, it is excellent for rotis, porridges, and grain bowls. Its phenolic compounds contribute to heart health, while its resilience as a crop makes it environmentally sustainable.',
-        image: 'images/sorgam_millets.avif',  // Change this path to your image
+        image: 'images/sorgam_millets.avif',
         imageClass: 'millet-jowar'
     },
 
@@ -193,8 +193,18 @@ function addToCart(productId) {
 
 // Initialize on page load
 document.addEventListener('DOMContentLoaded', function() {
+    console.log('DOMContentLoaded event fired in products.js');
     displayProducts();
 });
+
+// Also try to display products immediately in case the DOM is already loaded
+console.log('Script loaded, checking if DOM is already ready');
+if (document.readyState === 'loading') {
+    console.log('DOM is still loading, waiting for DOMContentLoaded');
+} else {
+    console.log('DOM already loaded, calling displayProducts immediately');
+    displayProducts();
+}
 
 // Export products data for use in order page
 if (typeof module !== 'undefined' && module.exports) {

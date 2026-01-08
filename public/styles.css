@@ -1239,48 +1239,6 @@ body {
     z-index: 1000;
 }
 
-/* Video Call Floating Button */
-.video-call-float {
-    width: 60px;
-    height: 60px;
-    background-color: #1a73e8;
-    color: #FFF;
-    border-radius: 50%;
-    text-align: center;
-    font-size: 30px;
-    box-shadow: 0 5px 15px rgba(26, 115, 232, 0.3);
-    transition: all 0.3s cubic-bezier(0.25, 0.8, 0.25, 1);
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    cursor: pointer;
-}
-
-.video-call-float:hover {
-    background-color: #1557b0;
-    transform: scale(1.1) translateY(-3px);
-    box-shadow: 0 8px 20px rgba(21, 87, 176, 0.4);
-}
-
-.video-call-float a {
-    color: white;
-    text-decoration: none;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    height: 100%;
-    width: 100%;
-    border-radius: 50%;
-}
-
-.video-call-float i {
-    transition: transform 0.3s ease;
-}
-
-.video-call-float:hover i {
-    transform: scale(1.1);
-}
-
 /* WhatsApp Floating Button */
 .whatsapp-float {
     width: 60px;
@@ -1348,15 +1306,13 @@ body {
         gap: 10px;
     }
     
-    .whatsapp-float,
-    .video-call-float {
+    .whatsapp-float {
         width: 50px;
         height: 50px;
         font-size: 24px;
     }
     
-    .whatsapp-float i,
-    .video-call-float i {
+    .whatsapp-float i {
         line-height: 50px;
     }
 }
