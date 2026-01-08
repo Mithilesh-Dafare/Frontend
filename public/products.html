@@ -87,67 +87,52 @@
         </div>
     </footer>
 
-    <!-- Add debug info -->
-    <div id="debug-info" style="display: none; position: fixed; bottom: 0; right: 0; background: #f8f9fa; padding: 10px; border: 1px solid #ddd; z-index: 9999;"></div>
-    
-    <!-- Load scripts with proper order -->
+    <!-- Load scripts in the correct order -->
     <script>
-        // Debug function
-        function logDebug(message) {
-            console.log('[DEBUG]', message);
-            const debugEl = document.getElementById('debug-info');
-            if (debugEl) {
-                debugEl.innerHTML += '<div>' + message + '</div>';
-                debugEl.style.display = 'block';
-            }
-        }
-        
-        // Load scripts in order
+        // Simple script loader with error handling
         function loadScript(src, callback) {
-            logDebug('Loading script: ' + src);
             const script = document.createElement('script');
             script.src = src;
-            script.onload = () => {
-                logDebug('Loaded: ' + src);
-                if (callback) callback();
-            };
-            script.onerror = () => {
-                console.error('Error loading script:', src);
-                logDebug('Error loading: ' + src);
+            script.onload = () => callback && callback();
+            script.onerror = (error) => {
+                console.error(`Error loading script: ${src}`, error);
                 // Continue with the next script even if this one fails
-                if (callback) callback();
+                callback && callback();
             };
             document.body.appendChild(script);
         }
-        
-        // Load scripts in sequence
+
+        // Load products first, then other scripts
         document.addEventListener('DOMContentLoaded', function() {
-            logDebug('DOM fully loaded');
+            console.log('DOM fully loaded');
             
-            // First load EmailJS
-            loadScript('https://cdn.jsdelivr.net/npm/emailjs-com@3.2.1/dist/email.min.js', function() {
-                // Initialize EmailJS
-                (function(){
-                    emailjs.init({
-                        publicKey: 'YOUR_PUBLIC_KEY', // Replace with your actual public key
-                    });
-                })();
+            // Load products.js first to ensure products show up
+            loadScript('products.js', function() {
+                if (typeof displayProducts === 'function') {
+                    console.log('Calling displayProducts()');
+                    displayProducts();
+                } else {
+                    console.error('displayProducts function not found!');
+                }
                 
-                // Then load notifications.js which depends on EmailJS
-                loadScript('js/notifications.js', function() {
-                    // Then load other scripts
-                    loadScript('script.js', function() {
-                        // Finally load products.js
-                        loadScript('products.js', function() {
-                            // Initialize after all scripts are loaded
-                            if (typeof displayProducts === 'function') {
-                                logDebug('Calling displayProducts()');
-                                displayProducts();
-                            } else {
-                                logDebug('displayProducts function not found!');
-                            }
-                        });
-                    });
+                // Then load other scripts that aren't critical for product display
+                loadScript('script.js');
+                
+                // Load EmailJS and notifications in the background
+                loadScript('https://cdn.jsdelivr.net/npm/emailjs-com@3.2.1/dist/email.min.js', function() {
+                    if (typeof emailjs !== 'undefined') {
+                        try {
+                            emailjs.init({
+                                publicKey: 'YOUR_PUBLIC_KEY' // Replace with your actual public key
+                            });
+                            console.log('EmailJS initialized');
+                            
+                            // Load notifications after EmailJS is ready
+                            loadScript('js/notifications.js');
+                        } catch (error) {
+                            console.error('Failed to initialize EmailJS:', error);
+                        }
+                    }
                 });
             });
         });

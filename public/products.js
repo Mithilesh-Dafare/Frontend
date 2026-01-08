@@ -127,6 +127,12 @@ function displayProducts() {
     
     if (!productsGrid) {
         console.error('Products grid element not found!');
+        // Try again after a short delay in case the element isn't ready yet
+        if (document.readyState === 'loading') {
+            document.addEventListener('DOMContentLoaded', displayProducts);
+        } else {
+            setTimeout(displayProducts, 100);
+        }
         return;
     }
 
@@ -136,7 +142,7 @@ function displayProducts() {
         // Create product cards HTML
         const productsHTML = milletProducts.map(product => `
             <div class="product-card reveal" onclick="viewProductDetail(${product.id})" style="cursor: pointer;">
-                <div class="product-card-image ${product.imageClass}" style="background-color: #f5f5f5;">
+                <div class="product-card-image ${product.imageClass}" style="background-color: #f5f5f5; height: 200px; overflow: hidden;">
                     <img src="${product.image}" alt="${product.name}" 
                          onerror="this.style.display='none'; this.parentElement.classList.add('${product.imageClass}');"
                          style="width: 100%; height: 100%; object-fit: cover;">
@@ -160,13 +166,15 @@ function displayProducts() {
         console.log('Products HTML set successfully');
     } catch (error) {
         console.error('Error displaying products:', error);
-        productsGrid.innerHTML = `
-            <div class="error-message" style="grid-column: 1/-1; text-align: center; padding: 2rem;">
-                <h3>Unable to load products</h3>
-                <p>Please check your internet connection and try again.</p>
-                <button onclick="window.location.reload()" class="add-to-cart-btn">Retry</button>
-            </div>
-        `;
+        if (productsGrid) {
+            productsGrid.innerHTML = `
+                <div class="error-message" style="grid-column: 1/-1; text-align: center; padding: 2rem;">
+                    <h3>Unable to load products</h3>
+                    <p>Please check your internet connection and try again.</p>
+                    <button onclick="window.location.reload()" class="add-to-cart-btn">Retry</button>
+                </div>
+            `;
+        }
     }
 }
 
