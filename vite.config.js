@@ -3,7 +3,6 @@ import { resolve } from 'path';
 
 export default defineConfig({
   root: 'public',
-  publicDir: 'public',
   build: {
     outDir: '../dist',
     emptyOutDir: true,
@@ -20,10 +19,7 @@ export default defineConfig({
   },
   server: {
     port: 3000,
-    open: true
-  },
-  server: {
-    port: 3000,
-    open: true
+    open: true,
+    strictPort: true
   }
 })
