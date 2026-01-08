@@ -87,27 +87,26 @@
         </div>
     </footer>
 
-    <!-- Load scripts in the correct order -->
-    <script>
-        // Simple script loader with error handling
-        function loadScript(src, callback) {
-            const script = document.createElement('script');
-            script.src = src;
-            script.onload = () => callback && callback();
-            script.onerror = (error) => {
-                console.error(`Error loading script: ${src}`, error);
-                // Continue with the next script even if this one fails
-                callback && callback();
-            };
-            document.body.appendChild(script);
-        }
+  <!-- Load scripts at the end of the body -->
+<script>
+    // Simple script loader with error handling
+    function loadScript(src, callback) {
+        const script = document.createElement('script');
+        script.src = src;
+        script.onload = () => callback && callback();
+        script.onerror = (error) => {
+            console.error(`Error loading script: ${src}`, error);
+            callback && callback();
+        };
+        document.body.appendChild(script);
+    }
 
-        // Load products.js first to ensure products show up
-        loadScript('products.js', function() {
-            // Load other non-critical scripts
-            loadScript('script.js');
-        });
-    </script>
+    // First load products.js
+    loadScript('products.js', function() {
+        // Then load script.js
+        loadScript('script.js');
+    });
+</script>
 
     <!-- Floating Action Buttons -->
     <div class="floating-buttons">

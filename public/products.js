@@ -127,10 +127,12 @@ function displayProducts() {
     
     if (!productsGrid) {
         console.error('Products grid element not found!');
-        // Try again after a short delay in case the element isn't ready yet
+        // If the grid isn't found, try again after a short delay
         if (document.readyState === 'loading') {
+            // If the document is still loading, wait for it to finish
             document.addEventListener('DOMContentLoaded', displayProducts);
         } else {
+            // If the document has loaded but we still can't find the grid, try again after a short delay
             setTimeout(displayProducts, 100);
         }
         return;
@@ -192,17 +194,13 @@ function addToCart(productId) {
 }
 
 // Initialize on page load
-document.addEventListener('DOMContentLoaded', function() {
-    console.log('DOMContentLoaded event fired in products.js');
-    displayProducts();
-});
-
-// Also try to display products immediately in case the DOM is already loaded
-console.log('Script loaded, checking if DOM is already ready');
 if (document.readyState === 'loading') {
-    console.log('DOM is still loading, waiting for DOMContentLoaded');
+    document.addEventListener('DOMContentLoaded', function() {
+        console.log('DOM fully loaded, initializing products');
+        displayProducts();
+    });
 } else {
-    console.log('DOM already loaded, calling displayProducts immediately');
+    console.log('DOM already loaded, initializing products immediately');
     displayProducts();
 }
 
