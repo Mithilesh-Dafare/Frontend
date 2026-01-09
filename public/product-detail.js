@@ -1,25 +1,32 @@
 // Product Detail Page Script
-
 // Get product ID from URL parameter
 function getProductIdFromURL() {
     const urlParams = new URLSearchParams(window.location.search);
-    return parseInt(urlParams.get('id'));
+    const id = parseInt(urlParams.get('id'));
+    console.log('Product ID from URL:', id);
+    return id;
 }
-
 // Get product ID from sessionStorage (if coming from products page)
 function getProductIdFromStorage() {
     const storedId = sessionStorage.getItem('viewProductId');
     if (storedId) {
         sessionStorage.removeItem('viewProductId');
-        return parseInt(storedId);
+        const id = parseInt(storedId);
+        console.log('Product ID from storage:', id);
+        return id;
     }
     return null;
 }
 
 // Display product details
 function displayProductDetail(product) {
+    console.log('Displaying product:', product);
     const container = document.getElementById('productDetailContainer');
     
+    if (!container) {
+        console.error('Product detail container not found');
+        return;
+    }
     if (!product) {
         container.innerHTML = `
             <div class="error-message">
@@ -130,44 +137,74 @@ function displayProductDetail(product) {
 
 // Get product by ID
 function getProductById(id) {
-    // Check if milletProducts is available in the global scope
-    if (typeof window.milletProducts !== 'undefined') {
-        return window.milletProducts.find(product => product.id === id);
-    } else {
+    console.log('Looking for product with ID:', id);
+    console.log('Available products:', window.milletProducts);
+    
+    if (typeof window.milletProducts === 'undefined') {
         console.error('milletProducts is not defined');
         return null;
     }
+    
+    const product = window.milletProducts.find(p => p.id === id);
+    console.log('Found product:', product);
+    return product;
 }
 
-// Load product detail
+// Load product detail with retry mechanism
 function loadProductDetail() {
     const productId = getProductIdFromURL() || getProductIdFromStorage();
+    console.log('Loading product detail for ID:', productId);
     
-    // If milletProducts is not loaded yet, wait a bit and try again
-    if (typeof window.milletProducts === 'undefined') {
-        console.log('milletProducts not loaded yet, retrying...');
-        setTimeout(loadProductDetail, 100);
+    if (!productId) {
+        showError("No product ID provided");
         return;
     }
-    
-    const product = getProductById(productId);
-    if (!product) {
-        console.error('Product not found with ID:', productId);
-        const container = document.getElementById('productDetailContainer');
-        if (container) {
-            container.innerHTML = `
-                <div class="error-message">
-                    <h2>Product Not Found</h2>
-                    <p>The product you're looking for doesn't exist or failed to load.</p>
-                    <a href="products.html" class="btn-primary">View All Products</a>
-                </div>
-            `;
+    const tryLoading = (attempt = 0) => {
+        console.log(`Attempt ${attempt + 1} to load product`);
+        
+        if (typeof window.milletProducts === 'undefined') {
+            if (attempt < 10) {
+                console.log('milletProducts not loaded yet, retrying...');
+                setTimeout(() => tryLoading(attempt + 1), 200);
+            } else {
+                showError("Failed to load product data. Please refresh the page.");
+            }
+            return;
         }
-        return;
+        const product = getProductById(productId);
+        if (product) {
+            displayProductDetail(product);
+        } else {
+            showError("Product not found");
+        }
+    };
+    // Show loading state
+    const container = document.getElementById('productDetailContainer');
+    if (container) {
+        container.innerHTML = `
+            <div class="loading">
+                <div class="spinner"></div>
+                <p>Loading product details...</p>
+            </div>
+        `;
     }
-    displayProductDetail(product);
-    
-    // Add event listener for see more/less button
+    // Start loading
+    tryLoading();
+}
+function showError(message) {
+    console.error(message);
+    const container = document.getElementById('productDetailContainer');
+    if (container) {
+        container.innerHTML = `
+            <div class="error-message">
+                <h2>Error Loading Product</h2>
+                <p>${message}</p>
+                <a href="products.html" class="btn-primary">Back to Products</a>
+            </div>
+        `;
+    }
+}
+function setupSeeMoreButton() {
     const seeMoreBtn = document.getElementById('seeMoreBtn');
     const detailMoreText = document.getElementById('detailMoreText');
     
@@ -179,9 +216,8 @@ function loadProductDetail() {
         });
     }
 }
-
-// Initialize on page load
+// Initialize when DOM is loaded
 document.addEventListener('DOMContentLoaded', function() {
+    console.log('DOM loaded, initializing product detail page');
     loadProductDetail();
 });
-

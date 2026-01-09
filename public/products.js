@@ -1,5 +1,9 @@
 // Millet Products Data
 // To change images, update the 'image' path below for each millet product
+if (typeof window.milletProducts === 'undefined') {
+    window.milletProducts = [];
+}
+
 window.milletProducts = [
     {
         id: 1,
