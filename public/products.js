@@ -137,8 +137,11 @@ function displayProducts() {
 
     // Add each product to the grid
     milletProducts.forEach(product => {
-        const productCard = document.createElement('div');
+        const productCard = document.createElement('a');
         productCard.className = 'product-card';
+        productCard.href = `product-detail.html?id=${product.id}`;
+        productCard.style.textDecoration = 'none';
+        productCard.style.color = 'inherit';
         
         productCard.innerHTML = `
             <div class="product-card-image ${product.imageClass || ''}">
@@ -151,13 +154,6 @@ function displayProducts() {
                     <span class="usd-price">($${product.priceUsd}/kg)</span>
                 </div>
                 <p class="description">${product.description}</p>
-                <div class="benefits">
-                    <h4>Key Benefits:</h4>
-                    <ul>
-                        ${product.benefits.map(benefit => `<li>${benefit}</li>`).join('')}
-                    </ul>
-                </div>
-                <button class="btn primary" onclick="viewProductDetail(${product.id})">View Details</button>
             </div>
         `;
         productsGrid.appendChild(productCard);
