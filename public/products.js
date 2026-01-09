@@ -1,6 +1,6 @@
 // Millet Products Data
 // To change images, update the 'image' path below for each millet product
-const milletProducts = [
+window.milletProducts = [
     {
         id: 1,
         name: 'Finger Millet (Ragi)',
@@ -176,14 +176,18 @@ function addToCart(productId) {
 }
 
 // Initialize on page load
-if (document.readyState === 'loading') {
-    document.addEventListener('DOMContentLoaded', function() {
-        console.log('DOM fully loaded, initializing products');
+function initProducts() {
+    console.log('Initializing products');
+    if (document.getElementById('productsGrid')) {
         displayProducts();
-    });
+    }
+}
+
+if (document.readyState === 'loading') {
+    document.addEventListener('DOMContentLoaded', initProducts);
 } else {
-    console.log('DOM already loaded, initializing products immediately');
-    displayProducts();
+    // In case the document is already loaded
+    initProducts();
 }
 
 // Export products data for use in order page

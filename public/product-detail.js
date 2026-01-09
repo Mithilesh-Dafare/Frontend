@@ -128,31 +128,49 @@ function displayProductDetail(product) {
     `;
 }
 
+// Get product by ID
+function getProductById(id) {
+    // Check if milletProducts is available in the global scope
+    if (typeof window.milletProducts !== 'undefined') {
+        return window.milletProducts.find(product => product.id === id);
+    } else {
+        console.error('milletProducts is not defined');
+        return null;
+    }
+}
+
 // Load product detail
 function loadProductDetail() {
-    const container = document.getElementById('productDetailContainer');
+    const productId = getProductIdFromURL() || getProductIdFromStorage();
     
-    // Try to get product ID from URL or sessionStorage
-    let productId = getProductIdFromURL() || getProductIdFromStorage();
-    
-    if (!productId) {
-        container.innerHTML = `
-            <div class="error-message">
-                <h2>No Product Selected</h2>
-                <p>Please select a product to view details.</p>
-                <a href="products.html" class="btn-primary">View All Products</a>
-            </div>
-        `;
+    // If milletProducts is not loaded yet, wait a bit and try again
+    if (typeof window.milletProducts === 'undefined') {
+        console.log('milletProducts not loaded yet, retrying...');
+        setTimeout(loadProductDetail, 100);
         return;
     }
-
-    // Find product in milletProducts array
-    const product = milletProducts.find(p => p.id === productId);
+    
+    const product = getProductById(productId);
+    if (!product) {
+        console.error('Product not found with ID:', productId);
+        const container = document.getElementById('productDetailContainer');
+        if (container) {
+            container.innerHTML = `
+                <div class="error-message">
+                    <h2>Product Not Found</h2>
+                    <p>The product you're looking for doesn't exist or failed to load.</p>
+                    <a href="products.html" class="btn-primary">View All Products</a>
+                </div>
+            `;
+        }
+        return;
+    }
     displayProductDetail(product);
-
-    // Wire up see more toggle
+    
+    // Add event listener for see more/less button
     const seeMoreBtn = document.getElementById('seeMoreBtn');
     const detailMoreText = document.getElementById('detailMoreText');
+    
     if (seeMoreBtn && detailMoreText) {
         seeMoreBtn.addEventListener('click', function() {
             const isCollapsed = detailMoreText.classList.contains('collapsed');
