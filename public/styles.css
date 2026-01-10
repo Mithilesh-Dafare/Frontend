@@ -1274,31 +1274,35 @@ body {
 /* Floating Buttons Container */
 .floating-buttons {
     position: fixed;
-    bottom: 20px;
-    right: 15px;
+    bottom: 30px;
+    right: 25px;
     display: flex;
     flex-direction: column;
     align-items: flex-end;
-    gap: 10px;
-    z-index: 1000;
+    gap: 15px;
+    z-index: 9999;
+    pointer-events: none;
 }
 
 /* WhatsApp Floating Button */
 .whatsapp-float {
-    width: 60px;
-    height: 60px;
+    width: 65px;
+    height: 65px;
     background-color: #25d366;
     color: #FFF;
     border-radius: 50%;
     text-align: center;
-    font-size: 32px;
-    box-shadow: 0 5px 20px rgba(37, 211, 102, 0.4);
-    z-index: 1000;
+    font-size: 34px;
+    box-shadow: 0 6px 25px rgba(37, 211, 102, 0.5);
+    z-index: 10000;
     transition: all 0.3s cubic-bezier(0.25, 0.8, 0.25, 1);
     display: flex;
     align-items: center;
     justify-content: center;
-    border: 2px solid white;
+    border: 3px solid white;
+    pointer-events: auto;
+    position: relative;
+    overflow: hidden;
 }
 
 .whatsapp-float:hover {
