@@ -1355,19 +1355,31 @@ body {
 /* Responsive adjustments */
 @media (max-width: 768px) {
     .floating-buttons {
-        bottom: 15px;
-        right: 10px;
-        gap: 5px;
+        bottom: 25px;
+        right: 20px;
+        gap: 10px;
     }
     
     .whatsapp-float {
-        width: 40px;
-        height: 40px;
-        font-size: 20px;
+        width: 60px;
+        height: 60px;
+        font-size: 30px;
+        border-width: 2px;
     }
     
     .whatsapp-float i {
-        line-height: 40px;
+        line-height: 56px; /* Adjusted for border */
+    }
+    
+    /* Add pulse animation for better visibility */
+    .whatsapp-float {
+        animation: pulse 1.5s infinite;
+    }
+    
+    @keyframes pulse {
+        0% { transform: scale(1); }
+        50% { transform: scale(1.1); }
+        100% { transform: scale(1); }
     }
 }
 
