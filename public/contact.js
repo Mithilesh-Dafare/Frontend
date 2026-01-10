@@ -33,15 +33,33 @@ document.addEventListener('DOMContentLoaded', function() {
             }
 
             try {
-              const response = await fetch('https://backend-sandy-delta-67.vercel.app/api/contact', {
-                method: 'POST',
-                headers: {
-        'Content-Type': 'application/json'
-    },
-    body: JSON.stringify(formData)
-});
+                console.log('Sending contact form data:', formData);
+                const response = await fetch('https://backend-sandy-delta-67.vercel.app/api/contact', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json',
+                        'Accept': 'application/json'
+                    },
+                    body: JSON.stringify(formData)
+                });
 
-                const data = await response.json();
+                console.log('Response status:', response.status);
+                
+                let data;
+                try {
+                    data = await response.json();
+                    console.log('Response data:', data);
+                } catch (jsonError) {
+                    console.error('Error parsing JSON response:', jsonError);
+                    const text = await response.text();
+                    console.error('Raw response:', text);
+                    throw new Error('Invalid response from server');
+                }
+
+                if (!response.ok) {
+                    console.error('Server returned error status:', response.status);
+                    throw new Error(data.error || `Server error: ${response.statusText}`);
+                }
 
                 if (data.success) {
                     showMessage(data.message, 'success');
