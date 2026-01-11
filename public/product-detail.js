@@ -65,10 +65,7 @@ function displayProductDetail(product) {
                 <div class="product-detail-specs">
                     <h3>Product Specifications</h3>
                     <div class="specs-grid">
-                        <div class="spec-item">
-                            <span class="spec-label">Type:</span>
-                            <span class="spec-value">Organic Millet</span>
-                        </div>
+                        
                         <div class="spec-item">
                             <span class="spec-label">Certification:</span>
                             <span class="spec-value">FSSAI Certified</span>
