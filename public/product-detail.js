@@ -112,16 +112,15 @@ function displayProductDetail(product) {
                     </ul>
                 </div>
                 <div class="product-detail-actions">
-                    <a href="contact.html?product=${encodeURIComponent(product.name)}&price=${product.price}" class="btn-buy-now">
-                        <span>Buy Now</span>
-                        <span class="btn-icon">→</span>
-                    </a>
-                    <a href="contact.html" class="btn-contact">
-                        Contact Us for Bulk Orders
+                    <a href="https://wa.me/917058766180?text=Hello%20SayOne%20Ventures%2C%20I%20have%20a%20query%20about%20your%20product%3A%20${encodeURIComponent(product.name)}" 
+                       class="btn-request-query" 
+                       target="_blank" 
+                       rel="noopener noreferrer">
+                        <i class="fab fa-whatsapp"></i> Request a Query
                     </a>
                 </div>
                 <div class="product-detail-note">
-                    <p><strong>Note:</strong> For bulk orders or wholesale inquiries, please contact us directly. We offer competitive pricing for large quantities.</p>
+                    <p><strong>Note:</strong> Click the button above to contact us directly via WhatsApp for any queries about this product.</p>
                 </div>
             </div>
         </div>
