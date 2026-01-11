@@ -52,15 +52,6 @@ function displayProductDetail(product) {
                     <span>${product.name}</span>
                 </div>
                 <h1 class="product-detail-title">${product.name}</h1>
-                <div class="product-detail-price">
-                    <div class="price-container">
-                        <span class="price-label">Price:</span>
-                        <div class="price-value">
-                            <span class="inr-price">₹${product.price}/kg</span>
-                            <span class="usd-price">($${product.priceUsd || '0.7-1'}/kg)</span>
-                        </div>
-                    </div>
-                </div>
                 <div class="product-detail-description">
                     <h3>Description</h3>
                     <p>${product.description}</p>
@@ -112,15 +103,25 @@ function displayProductDetail(product) {
                     </ul>
                 </div>
                 <div class="product-detail-actions">
-                    <a href="https://wa.me/917058766180?text=Hello%20SayOne%20Ventures%2C%20I%20have%20a%20query%20about%20your%20product%3A%20${encodeURIComponent(product.name)}" 
+                    <a href="https://wa.me/917058766180?text=${encodeURIComponent(
+                        'Hello SayOne Ventures,\n\n' +
+                        'I am interested in your product: *' + product.name + '*\n\n' +
+                        'Could you please provide more information about the following?\n' +
+                        '1. Minimum Order Quantity (MOQ)\n' +
+                        '2. Available packaging options\n' +
+                        '3. Sample availability\n' +
+                        '4. Current pricing and shipping terms\n\n' +
+                        'Looking forward to your response.\n\n' 
+                        
+                    )}" 
                        class="btn-request-query" 
                        target="_blank" 
                        rel="noopener noreferrer">
-                        <i class="fab fa-whatsapp"></i> Request a Query
+                        <i class="fab fa-whatsapp"></i> Request a Quote / Enquire Now
                     </a>
                 </div>
                 <div class="product-detail-note">
-                    <p><strong>Note:</strong> Click the button above to contact us directly via WhatsApp for any queries about this product.</p>
+                    <p><strong>Note:</strong> Clicking the button will open WhatsApp with a pre-filled message. Please complete your contact details before sending.</p>
                 </div>
             </div>
         </div>
@@ -173,6 +174,8 @@ function loadProductDetail() {
         const product = getProductById(productId);
         if (product) {
             displayProductDetail(product);
+            // Setup the see more button after the product is displayed
+            setupSeeMoreButton();
         } else {
             showError("Product not found");
         }
@@ -208,11 +211,28 @@ function setupSeeMoreButton() {
     const detailMoreText = document.getElementById('detailMoreText');
     
     if (seeMoreBtn && detailMoreText) {
+        // Initially hide the button if there's no content to expand
+        if (!detailMoreText.textContent.trim() || detailMoreText.textContent.trim() === 'More details coming soon.') {
+            seeMoreBtn.style.display = 'none';
+            detailMoreText.classList.remove('collapsed');
+            return;
+        }
+        
+        // Show/hide functionality
         seeMoreBtn.addEventListener('click', function() {
-            const isCollapsed = detailMoreText.classList.contains('collapsed');
             detailMoreText.classList.toggle('collapsed');
-            seeMoreBtn.textContent = isCollapsed ? 'See less' : 'See more';
+            seeMoreBtn.textContent = detailMoreText.classList.contains('collapsed') ? 'See more' : 'See less';
+            
+            // Smooth scroll to the expanded content
+            if (!detailMoreText.classList.contains('collapsed')) {
+                setTimeout(() => {
+                    detailMoreText.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+                }, 100);
+            }
         });
+        
+        // Show the button if it was hidden by default
+        seeMoreBtn.style.display = 'block';
     }
 }
 // Initialize when DOM is loaded
