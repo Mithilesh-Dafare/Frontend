@@ -147,17 +147,20 @@ function displayProducts() {
         productCard.style.textDecoration = 'none';
         productCard.style.color = 'inherit';
         
+        // Add badge for featured products (you can customize this logic)
+        const isFeatured = [1, 2, 3].includes(product.id); // Example: First 3 products are featured
+        
         productCard.innerHTML = `
             <div class="product-card-image ${product.imageClass || ''}">
                 <img src="${product.image}" alt="${product.name}" onerror="this.style.display='none'">
+                ${isFeatured ? '<span class="product-badge">Featured</span>' : ''}
             </div>
             <div class="product-card-content">
                 <h3>${product.name}</h3>
-                <div class="price">
-                    ₹${product.price}/kg
-                    <span class="usd-price">($${product.priceUsd}/kg)</span>
-                </div>
                 <p class="description">${product.description}</p>
+                <a href="#" class="view-details" onclick="event.preventDefault(); viewProductDetail(${product.id})">
+                    View Details &rarr;
+                </a>
             </div>
         `;
         productsGrid.appendChild(productCard);
