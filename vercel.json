@@ -9,6 +9,17 @@
       }
     }
   ],
+  "headers": [
+    {
+      "source": "/(.*).xml",
+      "headers": [
+        {
+          "key": "Content-Type",
+          "value": "application/xml; charset=utf-8"
+        }
+      ]
+    }
+  ],
   "routes": [
     { "src": "/assets/(.*)", "dest": "/assets/$1" },
     { "src": "/images/(.*)", "dest": "/images/$1" },
@@ -16,7 +27,7 @@
     { "src": "/components/(.*)", "dest": "/components/$1" },
     { "src": "/(.*\\.js$)", "dest": "/$1" },
     { "src": "/(.*\\.css$)", "dest": "/$1" },
-    { "src": "/(.*\\.(jpg|jpeg|png|svg|ico|webp|avif|pdf))", "dest": "/$1" },
+    { "src": "/(.*\\.(jpg|jpeg|png|svg|ico|webp|avif|pdf|xml))", "dest": "/$1" },
     { "src": "/(.*\\.html$)", "dest": "/$1" },
     { "src": "/(.*)", "dest": "/index.html" }
   ]
