@@ -1,0 +1,7 @@
+<IfModule mod_mime.c>
+  AddType application/xml .xml
+</IfModule>
+
+<Files "sitemap.xml">
+  Header set Content-Type "application/xml; charset=utf-8"
+</Files>
