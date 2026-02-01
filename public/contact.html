@@ -60,7 +60,7 @@
                         <p>Monday - Friday: 9:00 AM - 6:00 PM<br>Saturday: 10:00 AM - 4:00 PM</p>
                     </div>
                 </div>
-                <div class="google-form-container">
+                <!-- <div class="google-form-container">
                     <div class="form-icon">
                         <i class="fab fa-google" style="font-size: 48px; color: #4285F4;"></i>
                         <i class="fas fa-file-alt" style="font-size: 48px; color: #34A853; margin-left: -15px;"></i>
@@ -72,7 +72,60 @@
                         <i class="fab fa-google"></i>
                         Open Google Form
                     </a>
-                </div> 
+                </div>  -->
+                <div class="card">
+    <h2 style="text-align: center; color: #333;">Talk to our Agent</h2>
+    <form id="contactForm">
+        <input type="text" id="name" placeholder="Your Name" required />
+        <input type="email" id="email" placeholder="Your Email" required />
+        <textarea id="message" rows="4" placeholder="How can we help?" required></textarea>
+        <button type="submit">Send Message</button>
+    </form>
+</div>
+
+<script>
+    document.getElementById('contactForm').addEventListener('submit', async (e) => {
+        e.preventDefault();
+        
+        const btn = e.target.querySelector('button');
+        const originalText = btn.innerText;
+        btn.innerText = "Sending...";
+        btn.disabled = true;
+
+        // 1. Collect the data
+        const data = {
+            name: document.getElementById('name').value,
+            email: document.getElementById('email').value,
+            message: document.getElementById('message').value
+        };
+
+        // -------------------------------------------------
+        // 2. PASTE YOUR NEW PRODUCTION URL HERE 👇
+        // -------------------------------------------------
+        const webhookUrl = "https://sayoneventures.app.n8n.cloud/webhook/contact"; 
+
+        try {
+            const response = await fetch(webhookUrl, {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify(data)
+            });
+
+            if (response.ok) {
+                alert("✅ Message sent! Check your inbox.");
+                document.getElementById('contactForm').reset();
+            } else {
+                alert("❌ Error sending message.");
+            }
+        } catch (error) {
+            console.error(error);
+            alert("❌ Network error.");
+        }
+
+        btn.innerText = originalText;
+        btn.disabled = false;
+    });
+</script>
             </div>
         </div>
     </section>
