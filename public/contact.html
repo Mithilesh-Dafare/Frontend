@@ -1,135 +1,294 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Contact Us - SayOne Ventures</title>
     <!-- whatsapp floating button -->
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
-    <link rel="stylesheet" href="styles.css">
-</head>
-<body>
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css"
+    />
+    <link rel="stylesheet" href="styles.css" />
+  </head>
+  <body>
     <!-- Header -->
     <header class="header">
-        <nav class="navbar">
-            <div class="container">
-                <div class="logo">
-                    <h1>SayOne Ventures</h1>
-                </div>
-                <ul class="nav-menu">
-                    <li><a href="index.html">Home</a></li>
-                    <li><a href="about.html">About</a></li>
-                    <li><a href="products.html">Products</a></li>
-                    <li><a href="Sayone_Ventures_Product_Strategy.pdf" target="_blank">Product Catalogue</a></li>
-                    <li><a href="contact.html" class="active">Contact Us</a></li>
-                </ul>
-                <div class="hamburger">
-                    <span></span>
-                    <span></span>
-                    <span></span>
-                </div>
-            </div>
-        </nav>
+      <nav class="navbar">
+        <div class="container">
+          <div class="logo">
+            <h1>SayOne Ventures</h1>
+          </div>
+          <ul class="nav-menu">
+            <li><a href="index.html">Home</a></li>
+            <li><a href="about.html">About</a></li>
+            <li><a href="products.html">Products</a></li>
+            <li>
+              <a href="Sayone_Ventures_Product_Strategy.pdf" target="_blank"
+                >Product Catalogue</a
+              >
+            </li>
+            <li><a href="contact.html" class="active">Contact Us</a></li>
+          </ul>
+          <div class="hamburger">
+            <span></span>
+            <span></span>
+            <span></span>
+          </div>
+        </div>
+      </nav>
     </header>
 
     <!-- Contact Hero -->
     <section class="page-hero">
-        <div class="container">
-            <h1>Contact Us</h1>
-            <p>We'd love to hear from you</p>
-        </div>
+      <div class="container">
+        <h1>Contact Us</h1>
+        <p>We'd love to hear from you</p>
+      </div>
     </section>
 
     <!-- Contact Section -->
     <section class="contact-section">
-        <div class="container">
-            <div class="contact-container">
-                <div class="contact-info">
-                    <h2>Get in Touch</h2>
-                    <p>Have questions about our products or services? Feel free to reach out to us.</p>
-                    <div class="info-item">
-                        <h3>Email</h3>
-                        <p>sales@sayoneventures.com</p>
-                    </div>
-                    <div class="info-item">
-                        <h3>Phone</h3>
-                        <p>+91-7058766180</p>
-                    </div>
-                    <div class="info-item">
-                        <h3>Business Hours</h3>
-                        <p>Monday - Friday: 9:00 AM - 6:00 PM<br>Saturday: 10:00 AM - 4:00 PM</p>
-                    </div>
-                </div>
-                <div class="google-form-container">
-                    <div class="form-icon">
-                        <i class="fab fa-google" style="font-size: 48px; color: #4285F4;"></i>
-                        <i class="fas fa-file-alt" style="font-size: 48px; color: #34A853; margin-left: -15px;"></i>
-                    </div>
-                    <h2>Contact Us via Google Form</h2>
-                    <p>We've made it easier for you to get in touch with us. Please click the button below to access our Google Form and submit your inquiry.</p>
-                    <p>Your feedback is important to us and will be responded to promptly.</p>
-                    <a href="https://forms.gle/79Sd2jqgUQK6Q1Z47" target="_blank" class="btn-primary" style="display: inline-flex; align-items: center; gap: 10px; margin-top: 20px;">
-                        <i class="fab fa-google"></i>
-                        Open Google Form
-                    </a>
-                </div> 
+      <div class="container">
+        <div class="contact-container">
+          <div class="contact-info">
+            <h2>Get in Touch</h2>
+            <p>
+              Have questions about our products or services? Feel free to reach
+              out to us.
+            </p>
+            <div class="info-item">
+              <h3>Email</h3>
+              <p>sales@sayoneventures.com</p>
             </div>
+            <div class="info-item">
+              <h3>Phone</h3>
+              <p>+91-7058766180</p>
+            </div>
+            <div class="info-item">
+              <h3>Business Hours</h3>
+              <p>
+                Monday - Friday: 9:00 AM - 6:00 PM<br />Saturday: 10:00 AM -
+                4:00 PM
+              </p>
+            </div>
+          </div>
+
+          <!-- Tabs for Form Options -->
+          <div class="form-tabs">
+            <div class="tab-buttons">
+              <button class="tab-btn active" data-tab="contact-form">
+                Contact Form
+              </button>
+              <button class="tab-btn" data-tab="google-form">
+                Google Form
+              </button>
+            </div>
+
+            <!-- Contact Form Tab -->
+            <div id="contact-form" class="tab-content active">
+              <h2>Send us a Message</h2>
+              <p>Fill out the form below and we'll get back to you shortly.</p>
+              <div
+                id="contactMessageDiv"
+                class="message"
+                style="display: none"
+              ></div>
+              <form id="contactForm" class="contact-form">
+                <div class="form-group">
+                  <label for="contactName"
+                    >Name <span class="required">*</span></label
+                  >
+                  <input type="text" id="contactName" name="name" required />
+                </div>
+
+                <div class="form-group">
+                  <label for="contactEmail"
+                    >Email <span class="required">*</span></label
+                  >
+                  <input type="email" id="contactEmail" name="email" required />
+                </div>
+
+                <div class="form-group">
+                  <label for="contactPhone">WhatsApp Number</label>
+                  <input
+                    type="tel"
+                    id="contactPhone"
+                    name="phone"
+                    placeholder="+91"
+                  />
+                </div>
+
+                <div class="form-group">
+                  <label for="contactCountry"
+                    >Country <span class="required">*</span></label
+                  >
+                  <input
+                    type="text"
+                    id="contactCountry"
+                    name="country"
+                    required
+                  />
+                </div>
+
+                <div class="form-group">
+                  <label for="contactOrganization"
+                    >Name of Organization <span class="required">*</span></label
+                  >
+                  <input
+                    type="text"
+                    id="contactOrganization"
+                    name="organization"
+                    required
+                  />
+                </div>
+
+                <div class="form-group">
+                  <label for="contactRole"
+                    >Role in Organization <span class="required">*</span></label
+                  >
+                  <input type="text" id="contactRole" name="role" required />
+                </div>
+
+                <div class="form-group">
+                  <label for="contactMessageText">Message</label>
+                  <textarea
+                    id="contactMessageText"
+                    name="message"
+                    rows="5"
+                  ></textarea>
+                </div>
+
+                <button
+                  id="contactSubmitButton"
+                  type="submit"
+                  class="btn-primary"
+                >
+                  Send Message
+                </button>
+              </form>
+
+              <div id="contactPopup" class="modal" aria-hidden="true">
+                <div class="modal-content">
+                  <span
+                    id="contactPopupClose"
+                    class="close-modal"
+                    role="button"
+                    aria-label="Close"
+                    >&times;</span
+                  >
+                  <h2 id="contactPopupTitle">Message status</h2>
+                  <p id="contactPopupText"></p>
+                  <div class="popup-actions">
+                    <button id="contactPopupCloseButton" class="btn-primary">
+                      OK
+                    </button>
+                    <a
+                      id="contactPopupGoogleLink"
+                      class="btn-primary"
+                      href="https://forms.gle/79Sd2jqgUQK6Q1Z47"
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      style="display: none"
+                      >Send by Google Form</a
+                    >
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <!-- Google Form Tab -->
+            <div id="google-form" class="tab-content">
+              <div class="google-form-container">
+                <div class="form-icon">
+                  <i
+                    class="fab fa-google"
+                    style="font-size: 48px; color: #4285f4"
+                  ></i>
+                  <i
+                    class="fas fa-file-alt"
+                    style="font-size: 48px; color: #34a853; margin-left: -15px"
+                  ></i>
+                </div>
+                <h2>Contact Us via Google Form</h2>
+                <p>
+                  We've made it easier for you to get in touch with us. Please
+                  click the button below to access our Google Form and submit
+                  your inquiry.
+                </p>
+                <p>
+                  Your feedback is important to us and will be responded to
+                  promptly.
+                </p>
+                <a
+                  href="https://forms.gle/79Sd2jqgUQK6Q1Z47"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  class="btn-primary"
+                  style="
+                    display: inline-flex;
+                    align-items: center;
+                    gap: 10px;
+                    margin-top: 20px;
+                    text-decoration: none;
+                    cursor: pointer;
+                  "
+                >
+                  <i class="fab fa-google"></i>
+                  Open Google Form
+                </a>
+              </div>
+            </div>
+          </div>
         </div>
+      </div>
     </section>
 
     <!-- Footer -->
     <footer class="footer">
-        <div class="container">
-            <div class="footer-content">
-                <div class="footer-section">
-                    <h3>SayOne Ventures</h3>
-                    <p>Trusted global exporters of premium-quality products.</p>
-                </div>
-                <div class="footer-section">
-                    <h4>Quick Links</h4>
-                    <ul>
-                        <li><a href="index.html">Home</a></li>
-                        <li><a href="about.html">About</a></li>
-                        <li><a href="products.html">Products</a></li>
-                        <li><a href="contact.html">Contact</a></li>
-                    </ul>
-                </div>
-                <div class="footer-section">
-                    <h4>Contact</h4>
-                    <p>Email: sales@sayoneventures.com</p>
-                    <p>Phone: +91-7058766180</p>
-                </div>
-            </div>
-            <div class="footer-bottom">
-                <p>&copy; 2026 SayOne Ventures. All rights reserved.</p>
-            </div>
+      <div class="container">
+        <div class="footer-content">
+          <div class="footer-section">
+            <h3>SayOne Ventures</h3>
+            <p>Trusted global exporters of premium-quality products.</p>
+          </div>
+          <div class="footer-section">
+            <h4>Quick Links</h4>
+            <ul>
+              <li><a href="index.html">Home</a></li>
+              <li><a href="about.html">About</a></li>
+              <li><a href="products.html">Products</a></li>
+              <li><a href="contact.html">Contact</a></li>
+            </ul>
+          </div>
+          <div class="footer-section">
+            <h4>Contact</h4>
+            <p>Email: sales@sayoneventures.com</p>
+            <p>Phone: +91-7058766180</p>
+          </div>
         </div>
+        <div class="footer-bottom">
+          <p>&copy; 2026 SayOne Ventures. All rights reserved.</p>
+        </div>
+      </div>
     </footer>
 
-<script type="module">
-  // Use dynamic imports to load the scripts
-  import('./contact.js').catch(error => {
-    console.error('Failed to load contact.js:', error);
-  }).then(() => {
-    return import('./script.js').catch(error => {
-      console.error('Failed to load script.js:', error);
-    });
-  });
-</script>
+    <script src="./contact.js"></script>
+    <script src="./script.js"></script>
 
     <!-- Floating Action Buttons -->
     <div class="floating-buttons">
-        
-        <!-- WhatsApp Button -->
-        <div class="whatsapp-float">
-            <a href="https://wa.me/917058766180?text=Hello%20SayOne%20Ventures%2C%20I%20am%20interested%20in%20your%20products%20and%20would%20like%20to%20receive%20a%20quotation.%20Looking%20forward%20to%20connecting%20with%20you." 
-               target="_blank" 
-               rel="noopener noreferrer"
-               aria-label="Chat with us on WhatsApp">
-                <i class="fab fa-whatsapp"></i>
-            </a>
-        </div>
+      <!-- WhatsApp Button -->
+      <div class="whatsapp-float">
+        <a
+          href="https://wa.me/917058766180?text=Hello%20SayOne%20Ventures%2C%20I%20am%20interested%20in%20your%20products%20and%20would%20like%20to%20receive%20a%20quotation.%20Looking%20forward%20to%20connecting%20with%20you."
+          target="_blank"
+          rel="noopener noreferrer"
+          aria-label="Chat with us on WhatsApp"
+        >
+          <i class="fab fa-whatsapp"></i>
+        </a>
+      </div>
     </div>
-</body>
+  </body>
 </html>
-
