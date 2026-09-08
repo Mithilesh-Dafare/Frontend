@@ -121,7 +121,7 @@ window.milletProducts = [
     longDescription: 'Guar Gum Powder is a natural dietary fiber extracted from guar beans and widely used as a thickening, stabilizing, and binding agent in food products. It helps regulate digestion, supports gut health, and slows glucose absorption, making it beneficial for blood sugar control. Guar gum is commonly used in gluten-free baking, sauces, dairy products, and processed foods, as well as in pharmaceutical and industrial applications.',
     image: 'images/guargum_powder.webp',
     imageClass: 'millet-guargum'
-    }
+    },
         {       
         id: 8,
         name: 'Rice',
