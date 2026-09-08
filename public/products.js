@@ -122,6 +122,38 @@ window.milletProducts = [
     image: 'images/guargum_powder.webp',
     imageClass: 'millet-guargum'
     }
+        {       
+        id: 8,
+        name: 'Rice',
+        price: 71, // 0.85 * 83 (average of 0.7-1)
+        priceUsd: '0.7-1',
+    description: 'Excellent source of complete plant protein and essential amino acids.',
+    benefits: [
+        'Complete protein source',
+        'Rich in calcium and iron',
+        'Supports muscle and bone health',
+        'Helps reduce cholesterol levels'
+    ],
+    longDescription: 'Soyabean is one of the few plant foods that provides complete protein, containing all essential amino acids. It is highly beneficial for muscle development, bone strength, and heart health. Rich in isoflavones, soyabean supports hormonal balance and helps reduce bad cholesterol. It is widely used in the form of soy flour, tofu, soy milk, and textured vegetable protein, making it a valuable component of vegetarian and vegan diets.',
+    image: 'images/soyabean.jpg',
+    imageClass: 'millet-soyabean'   
+    },
+        {       
+        id: 9,
+        name: 'RR',
+        price: 71, // 0.85 * 83 (average of 0.7-1)
+        priceUsd: '0.7-1',
+    description: 'Excellent source of complete plant protein and essential amino acids.',
+    benefits: [
+        'Complete protein source',
+        'Rich in calcium and iron',
+        'Supports muscle and bone health',
+        'Helps reduce cholesterol levels'
+    ],
+    longDescription: 'Soyabean is one of the few plant foods that provides complete protein, containing all essential amino acids. It is highly beneficial for muscle development, bone strength, and heart health. Rich in isoflavones, soyabean supports hormonal balance and helps reduce bad cholesterol. It is widely used in the form of soy flour, tofu, soy milk, and textured vegetable protein, making it a valuable component of vegetarian and vegan diets.',
+    image: 'images/soyabean.jpg',
+    imageClass: 'millet-soyabean'   
+    }
 ];
 
 // Display Products
