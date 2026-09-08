@@ -151,7 +151,7 @@ window.milletProducts = [
         'Cost-effective alternative to other protein meals'
     ],
     longDescription: 'Rapeseed Meal is a protein-rich by-product obtained after extracting oil from rapeseed. It provides valuable protein, amino acids, minerals, and other nutrients required for animal nutrition. It is commonly used in cattle, poultry, and other livestock feed formulations as a cost-effective protein source and can contribute to healthy growth and development.',
-    image: 'images/rapeseed-meal.jpg',
+    image: 'images/Rapaseed.jfif',
     imageClass: 'rapeseed-meal'   
 }
 ];
