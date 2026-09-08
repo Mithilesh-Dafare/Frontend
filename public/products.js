@@ -122,38 +122,38 @@ window.milletProducts = [
     image: 'images/guargum_powder.webp',
     imageClass: 'millet-guargum'
     },
-        {       
-        id: 8,
-        name: 'Rice',
-        price: 71, // 0.85 * 83 (average of 0.7-1)
-        priceUsd: '0.7-1',
-    description: 'Excellent source of complete plant protein and essential amino acids.',
+{       
+    id: 8,
+    name: 'Rice DDGS',
+    price: 71,
+    priceUsd: '0.7-1',
+    description: 'A high-protein feed ingredient made from rice, suitable for livestock and poultry nutrition.',
     benefits: [
-        'Complete protein source',
-        'Rich in calcium and iron',
-        'Supports muscle and bone health',
-        'Helps reduce cholesterol levels'
+        'High in protein and energy',
+        'Good source of amino acids',
+        'Supports livestock growth and development',
+        'Suitable for cattle, poultry, and aquaculture feed'
     ],
-    longDescription: 'Soyabean is one of the few plant foods that provides complete protein, containing all essential amino acids. It is highly beneficial for muscle development, bone strength, and heart health. Rich in isoflavones, soyabean supports hormonal balance and helps reduce bad cholesterol. It is widely used in the form of soy flour, tofu, soy milk, and textured vegetable protein, making it a valuable component of vegetarian and vegan diets.',
-    image: 'images/soyabean.jpg',
-    imageClass: 'millet-soyabean'   
-    },
-        {       
-        id: 9,
-        name: 'RR',
-        price: 71, // 0.85 * 83 (average of 0.7-1)
-        priceUsd: '0.7-1',
-    description: 'Excellent source of complete plant protein and essential amino acids.',
+    longDescription: 'Rice DDGS (Distillers Dried Grains with Solubles) is a nutritious animal feed ingredient produced as a by-product of rice-based ethanol production. It contains a good level of protein, energy, and essential amino acids, making it a valuable component of livestock, poultry, and aquaculture feed. Rice DDGS can help improve feed efficiency and provide a cost-effective source of nutrition.',
+    image: 'images/RD.jfif',
+    imageClass: 'rice-ddgs'   
+},
+{       
+    id: 9,
+    name: 'Rapeseed Meal',
+    price: 71,
+    priceUsd: '0.7-1',
+    description: 'A protein-rich feed ingredient derived from rapeseed, widely used in livestock and poultry nutrition.',
     benefits: [
-        'Complete protein source',
-        'Rich in calcium and iron',
-        'Supports muscle and bone health',
-        'Helps reduce cholesterol levels'
+        'Rich source of plant protein',
+        'Provides essential amino acids',
+        'Supports livestock growth and muscle development',
+        'Cost-effective alternative to other protein meals'
     ],
-    longDescription: 'Soyabean is one of the few plant foods that provides complete protein, containing all essential amino acids. It is highly beneficial for muscle development, bone strength, and heart health. Rich in isoflavones, soyabean supports hormonal balance and helps reduce bad cholesterol. It is widely used in the form of soy flour, tofu, soy milk, and textured vegetable protein, making it a valuable component of vegetarian and vegan diets.',
-    image: 'images/soyabean.jpg',
-    imageClass: 'millet-soyabean'   
-    }
+    longDescription: 'Rapeseed Meal is a protein-rich by-product obtained after extracting oil from rapeseed. It provides valuable protein, amino acids, minerals, and other nutrients required for animal nutrition. It is commonly used in cattle, poultry, and other livestock feed formulations as a cost-effective protein source and can contribute to healthy growth and development.',
+    image: 'images/rapeseed-meal.jpg',
+    imageClass: 'rapeseed-meal'   
+}
 ];
 
 // Display Products
